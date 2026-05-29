@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TrickDeck — スキー / スノーボードのトリック練習を動画で記録</title>
+    <meta
+      name="description"
+      content="TrickDeck はスキー / スノーボードのトリック練習を「撮る・整理する・振り返る」ためのアプリ。サーバーなし・オフライン完結で、データはすべて端末内に保存されます。"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="./index.html">
+          <span class="logo">T</span>
+          <span>TrickDeck</span>
+        </a>
+        <nav class="site">
+          <a href="#features">特徴</a>
+          <a href="#support">サポート</a>
+          <a href="privacy.html">プライバシー</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <span class="badge">SKI &amp; SNOWBOARD</span>
+          <h1>トリック練習を、<br />動画で積み上げる。</h1>
+          <p class="lead">
+            カメラアプリではなく、試技単位の動画知識ベース。撮って、整理して、後で技別・成否・施設で振り返る。サーバーなし・オフライン完結。
+          </p>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="wrap">
+          <div class="features">
+            <div class="card">
+              <h3>試技単位で記録</h3>
+              <p>
+                1本の動画ではなく「1回のトライ」を管理。結果・自己評価・メモ・グラブや回転などのメタデータを付けて残せます。
+              </p>
+            </div>
+            <div class="card">
+              <h3>ゲレンデ運用前提</h3>
+              <p>
+                省電力スタンバイからタップで撮影。濡れた軍手でも押せる大きなタッチ操作。オフラインで完結します。
+              </p>
+            </div>
+            <div class="card">
+              <h3>あとで振り返る</h3>
+              <p>
+                技別・成否・施設でフィルタ。フィルムストリップやズームで細かい動きまで比較できます。
+              </p>
+            </div>
+            <div class="card">
+              <h3>データは端末内のみ</h3>
+              <p>
+                記録はすべてあなたの端末に保存。外部サーバーへの送信もアカウント登録もありません。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="support">
+        <div class="wrap">
+          <h2>サポート / お問い合わせ</h2>
+          <p>
+            ご質問・不具合のご報告・ご要望は、下のフォームからお送りください。できる範囲で順次対応します。
+            返信が必要な場合は、連絡可能なメールアドレスをご記入ください。
+          </p>
+
+          <form id="contact-form" class="contact-form" novalidate>
+            <!-- Web3Forms: 送信先メールはここでは表示されず、access_key 経由で裏側に届く -->
+            <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY" />
+            <input type="hidden" name="subject" value="TrickDeck サポート問い合わせ" />
+            <input type="hidden" name="from_name" value="TrickDeck サポートフォーム" />
+            <!-- ハニーポット（bot 対策・人間には非表示） -->
+            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" />
+
+            <label>
+              <span>お名前 / ニックネーム</span>
+              <input type="text" name="name" required autocomplete="name" />
+            </label>
+            <label>
+              <span>返信用メール（任意）</span>
+              <input type="email" name="email" autocomplete="email" placeholder="返信が必要な場合のみ" />
+            </label>
+            <label>
+              <span>お問い合わせ内容</span>
+              <textarea name="message" rows="6" required></textarea>
+            </label>
+
+            <button type="submit" class="submit-btn">送信する</button>
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="callout">
+            アプリ内のデータ（撮影した動画の記録・トリック・設定）は、設定画面の「すべて削除」からいつでも完全に削除できます。データは端末内にのみ保存されており、外部には送信されません。
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        var form = document.getElementById("contact-form");
+        var status = document.getElementById("form-status");
+        if (!form) return;
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+          var btn = form.querySelector(".submit-btn");
+          btn.disabled = true;
+          status.className = "form-status";
+          status.textContent = "送信中…";
+          fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { Accept: "application/json" },
+            body: new FormData(form),
+          })
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (data) {
+              if (data.success) {
+                form.reset();
+                status.className = "form-status ok";
+                status.textContent =
+                  "送信しました。お問い合わせありがとうございます。";
+              } else {
+                status.className = "form-status err";
+                status.textContent =
+                  "送信に失敗しました。時間をおいて再度お試しください。";
+              }
+            })
+            .catch(function () {
+              status.className = "form-status err";
+              status.textContent =
+                "送信に失敗しました。ネットワーク環境をご確認ください。";
+            })
+            .finally(function () {
+              btn.disabled = false;
+            });
+        });
+      })();
+    </script>
+
+    <footer class="site">
+      <div class="wrap">
+        <div>© 2026 TrickDeck</div>
+        <div>
+          <a href="privacy.html">プライバシーポリシー</a>
+          <a href="#support">お問い合わせ</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
