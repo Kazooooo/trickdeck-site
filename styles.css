@@ -118,6 +118,28 @@ nav.site a:hover {
   letter-spacing: 0.5px;
 }
 
+/* App Store download badge (official artwork — do not alter the image itself) */
+.appstore-cta {
+  display: inline-block;
+  line-height: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.appstore-cta:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+  text-decoration: none;
+}
+.appstore-cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+.appstore-cta img {
+  height: 54px;
+  width: auto;
+  display: block;
+}
+
 /* Feature cards */
 .features {
   display: grid;
