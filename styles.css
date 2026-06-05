@@ -249,6 +249,7 @@ section h2 {
 }
 .contact-form input[type="text"],
 .contact-form input[type="email"],
+.contact-form select,
 .contact-form textarea {
   font: inherit;
   color: var(--text);
@@ -259,14 +260,30 @@ section h2 {
   width: 100%;
   resize: vertical;
 }
+.contact-form select {
+  min-height: 46px;
+  appearance: none;
+  -webkit-appearance: none;
+  /* 右端に控えめな下向き矢印（ネイティブ矢印の代わり・ダークテーマに馴染ませる） */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239a9a9a' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
   color: #5f5f5f;
 }
 .contact-form input:focus,
+.contact-form select:focus,
 .contact-form textarea:focus {
   outline: none;
   border-color: var(--accent);
+}
+.contact-form .hint {
+  font-weight: 400;
+  font-size: 12px;
+  color: #6f6f6f;
 }
 .contact-form .hp {
   position: absolute;

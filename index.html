@@ -99,6 +99,27 @@
               <span>返信用メール（任意）</span>
               <input type="email" name="email" autocomplete="email" placeholder="返信が必要な場合のみ" />
             </label>
+
+            <!-- 不具合の切り分け用の環境情報（すべて任意）。Web3Forms は name 付きの全項目を送信メールに含める -->
+            <label>
+              <span>使用端末（任意）</span>
+              <input type="text" name="device" autocomplete="off" placeholder="例: iPhone 15 Pro / Pixel 8" />
+            </label>
+            <label>
+              <span>OS（任意）</span>
+              <select name="os">
+                <option value="">選択しない</option>
+                <option value="iOS">iOS（iPhone / iPad）</option>
+                <option value="Android">Android</option>
+                <option value="その他">その他</option>
+              </select>
+            </label>
+            <label>
+              <span>アプリのバージョン（任意）</span>
+              <input type="text" name="app_version" autocomplete="off" placeholder="例: 1.0.1 (42)" />
+              <small class="hint">アプリの「設定」画面を一番下までスクロールすると確認できます。</small>
+            </label>
+
             <label>
               <span>お問い合わせ内容</span>
               <textarea name="message" rows="6" required></textarea>
